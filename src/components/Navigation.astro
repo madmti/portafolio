@@ -13,25 +13,25 @@
                 <div class="flex items-center gap-1">
                     <a
                         href="#home"
-                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                        class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
                         Home
                     </a>
                     <a
                         href="#about"
-                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                        class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
                         About
                     </a>
                     <a
                         href="#projects"
-                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                        class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
                         Projects
                     </a>
                     <a
                         href="#contact"
-                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                        class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
                         Contact
                     </a>
@@ -127,8 +127,37 @@
     </div>
 </nav>
 
+<style>
+    /* Base nav link styles */
+    .nav-link {
+        position: relative;
+        transition: all 0.2s ease;
+    }
+
+    /* Active nav link styling */
+    .nav-link.active {
+        background: rgb(var(--base-200));
+        color: rgb(var(--base-content));
+        font-weight: 600;
+    }
+
+    /* Small active indicator */
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 3px;
+        background: rgb(var(--primary));
+        border-radius: 50%;
+    }
+</style>
+
 <script is:inline lang="js">
     document.addEventListener("DOMContentLoaded", function () {
+        // Update date display
         const dateDisplay = document.getElementById("date-display");
         const now = new Date();
         const formattedDate = now.toLocaleDateString("es-ES", {
@@ -137,5 +166,24 @@
             year: "numeric",
         });
         dateDisplay.textContent = formattedDate;
+
+        // Handle active nav link highlighting
+        function updateActiveLink() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const currentHash = window.location.hash || '#home';
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentHash) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Update on page load
+        updateActiveLink();
+
+        // Update when hash changes
+        window.addEventListener('hashchange', updateActiveLink);
     });
 </script>
