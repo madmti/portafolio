@@ -58,6 +58,14 @@ export const ui = {
                 }
             }
         },
+        socialLinks: {
+            title: "Contacto",
+            subtitle: "Conectemos",
+            github: "GitHub",
+            linkedin: "LinkedIn",
+            email: "Correo",
+            connectMessage: "¡Conectemos! 🚀"
+        },
         academic: {
             title: "SIGA - Sistema de Información de Gestión Académica",
             systemName: "SISTEMA DE INFORMACIÓN",
@@ -185,6 +193,14 @@ export const ui = {
                     message: "Connection error. Please check your internet and try again."
                 }
             }
+        },
+        socialLinks: {
+            title: "Social Links",
+            subtitle: "Let's connect",
+            github: "GitHub",
+            linkedin: "LinkedIn",
+            email: "Email",
+            connectMessage: "Let's connect! 🚀"
         },
         academic: {
             title: "SIGA - Academic Management Information System",

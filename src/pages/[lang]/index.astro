@@ -12,6 +12,7 @@ import LyossProfile from "@/components/windows/LyossProfile.astro";
 import Academic from "@/components/windows/Academic.astro";
 import ProjectLauncher from "@/components/windows/ProjectLauncher.astro";
 import Email from "@/components/windows/Email.astro";
+import SocialLinks from "@/components/windows/SocialLinks.astro";
 
 // i18n
 import { ui } from "@/i18n/ui";
@@ -54,7 +55,10 @@ export function getStaticPaths() {
 
             <!-- Contact Workspace Terminals -->
             <div id="contact" class="workspace">
-                <div class="absolute top-30 right-[20vw] transform">
+                <div class="absolute top-25 left-25">
+                    <SocialLinks />
+                </div>
+                <div class="absolute top-30 right-[20vw]">
                     <Email />
                 </div>
             </div>
@@ -64,7 +68,7 @@ export function getStaticPaths() {
                 <div class="absolute top-40 right-40">
                     <GHProfile />
                 </div>
-                <div class="absolute bottom-10 left-20 transform">
+                <div class="absolute bottom-10 left-20">
                     <LyossProfile />
                 </div>
 
