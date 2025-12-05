@@ -18,6 +18,16 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Check VITE_WEB3FORMS_ACCESS_KEY is available
+        run: |
+          if [ -z "$VITE_WEB3FORMS_ACCESS_KEY" ]; then
+            echo "Error: VITE_WEB3FORMS_ACCESS_KEY is not set"
+            exit 1
+          else
+            echo "VITE_WEB3FORMS_ACCESS_KEY is available"
+          fi
+        env:
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         with:
@@ -33,6 +43,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Check VITE_WEB3FORMS_ACCESS_KEY is available
+        run: |
+          if [ -z "$VITE_WEB3FORMS_ACCESS_KEY" ]; then
+            echo "Error: VITE_WEB3FORMS_ACCESS_KEY is not set"
+            exit 1
+          else
+            echo "VITE_WEB3FORMS_ACCESS_KEY is available"
+          fi
+        env:
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
