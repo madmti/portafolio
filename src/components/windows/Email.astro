@@ -7,7 +7,7 @@ const lang = (Astro.currentLocale || "es") as "es" | "en";
 const t = ui[lang];
 
 // Web3Forms Access Key from environment variable
-const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY || "";
+const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
 ---
 
 <FirefoxWindow
@@ -20,8 +20,8 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY || "";
     <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 bg-white rounded flex items-center justify-center">
-                <img 
-                    src="/outlook.webp" 
+                <img
+                    src="/outlook.webp"
                     alt="Outlook icon"
                     class="w-8 h-8 object-contain"
                 />
