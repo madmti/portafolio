@@ -1,0 +1,254 @@
+---
+// NotificationContainer - Manages multiple notifications like Hyprland
+---
+
+<div id="notification-container" class="notification-container">
+    <!-- Notifications will be injected here via JavaScript -->
+</div>
+
+<style>
+    .notification-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        pointer-events: none;
+        width: 400px;
+        max-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .notification-container > * {
+        pointer-events: auto;
+    }
+</style>
+
+<script is:inline lang="js">
+    // Global notification system
+    class NotificationManager {
+        constructor() {
+            this.container = document.getElementById('notification-container');
+            this.notifications = new Map();
+            this.counter = 0;
+        }
+
+        show(options) {
+            const {
+                title = '',
+                message,
+                icon = '',
+                type = 'info',
+                duration = 5000
+            } = options;
+
+            const id = `notification-${++this.counter}`;
+            const notification = this.createNotification({
+                id,
+                title,
+                message,
+                icon,
+                type,
+                duration
+            });
+
+            this.container.appendChild(notification);
+            this.notifications.set(id, notification);
+
+            // Auto remove
+            setTimeout(() => {
+                this.remove(id);
+            }, duration);
+
+            return id;
+        }
+
+        createNotification({ id, title, message, icon, type, duration }) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${this.getTypeClass(type)}`;
+            notification.dataset.notificationId = id;
+            notification.dataset.duration = duration;
+
+            notification.innerHTML = `
+                <div class="notification-content">
+                    ${icon ? `<div class="notification-icon ${this.getIconColor(type)}">${icon}</div>` : ''}
+                    <div class="notification-text">
+                        ${title ? `<div class="notification-title">${title}</div>` : ''}
+                        <div class="notification-message">${message}</div>
+                    </div>
+                </div>
+                <div class="notification-progress"></div>
+            `;
+
+            // Set progress bar duration
+            notification.style.setProperty('--duration', `${duration}ms`);
+
+            return notification;
+        }
+
+        remove(id) {
+            const notification = this.notifications.get(id);
+            if (!notification) return;
+
+            notification.classList.add('removing');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+                this.notifications.delete(id);
+            }, 300);
+        }
+
+        getTypeClass(type) {
+            const classes = {
+                info: 'border-blue-400/40 bg-white/90',
+                success: 'border-green-400/40 bg-white/90',
+                warning: 'border-orange-400/40 bg-white/90',
+                error: 'border-red-400/40 bg-white/90'
+            };
+            return classes[type] || classes.info;
+        }
+
+        getIconColor(type) {
+            const colors = {
+                info: 'text-blue-600',
+                success: 'text-green-600',
+                warning: 'text-orange-600',
+                error: 'text-red-600'
+            };
+            return colors[type] || colors.info;
+        }
+
+        // Utility methods for common notifications
+        info(message, options = {}) {
+            return this.show({ ...options, message, type: 'info' });
+        }
+
+        success(message, options = {}) {
+            return this.show({ ...options, message, type: 'success' });
+        }
+
+        warning(message, options = {}) {
+            return this.show({ ...options, message, type: 'warning' });
+        }
+
+        error(message, options = {}) {
+            return this.show({ ...options, message, type: 'error' });
+        }
+    }
+
+    // Create global notification manager
+    window.notifications = new NotificationManager();
+
+    // Show welcome notification when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            window.notifications.info('👋 Hi there! Welcome to my portfolio.', {
+                title: 'System',
+                duration: 4000
+            });
+        }, 1000);
+    });
+
+    // Export for use in other scripts
+    window.NotificationManager = NotificationManager;
+</script>
+
+<style is:global>
+    .notification {
+        position: relative;
+        min-width: 300px;
+        max-width: 400px;
+        border: 1px solid;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        font-family: 'JetBrains Mono', monospace;
+        overflow: hidden;
+        animation: slideInRight 0.3s ease-out;
+        margin-bottom: 12px;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .notification-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .notification-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .notification-title {
+        color: #1f2937;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+
+    .notification-message {
+        color: #4b5563;
+        font-size: 13px;
+        line-height: 1.4;
+        word-wrap: break-word;
+    }
+
+
+
+    .notification-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #22c55e, #16a34a);
+        width: 100%;
+        transform-origin: left;
+        animation: progressBar var(--duration, 5s) linear forwards;
+    }
+
+    .notification.removing {
+        animation: slideOutRight 0.3s ease-in forwards;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes progressBar {
+        from {
+            transform: scaleX(1);
+        }
+        to {
+            transform: scaleX(0);
+        }
+    }
+</style>

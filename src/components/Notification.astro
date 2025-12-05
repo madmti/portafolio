@@ -1,0 +1,213 @@
+---
+interface Props {
+    id?: string;
+    title?: string;
+    message: string;
+    icon?: string;
+    type?: 'info' | 'success' | 'warning' | 'error';
+    duration?: number;
+    className?: string;
+}
+
+const {
+    id = '',
+    title = '',
+    message,
+    icon = '',
+    type = 'info',
+    duration = 5000,
+    className = ''
+} = Astro.props;
+
+const typeStyles = {
+    info: 'border-blue-500/30 bg-gray-900/95',
+    success: 'border-green-500/30 bg-gray-900/95',
+    warning: 'border-yellow-500/30 bg-gray-900/95',
+    error: 'border-red-500/30 bg-gray-900/95'
+};
+
+const iconColors = {
+    info: 'text-blue-400',
+    success: 'text-green-400',
+    warning: 'text-yellow-400',
+    error: 'text-red-400'
+};
+---
+
+<div
+    class={`notification ${typeStyles[type]} ${className}`}
+    data-notification-id={id}
+    data-duration={duration}
+>
+    <div class="notification-content">
+        {icon && (
+            <div class={`notification-icon ${iconColors[type]}`}>
+                {icon}
+            </div>
+        )}
+
+        <div class="notification-text">
+            {title && (
+                <div class="notification-title">
+                    {title}
+                </div>
+            )}
+            <div class="notification-message">
+                {message}
+            </div>
+        </div>
+
+        <button class="notification-close" data-close="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+
+    <div class="notification-progress"></div>
+</div>
+
+<style>
+    .notification {
+        position: relative;
+        min-width: 300px;
+        max-width: 400px;
+        border: 1px solid;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        font-family: 'JetBrains Mono', monospace;
+        overflow: hidden;
+        animation: slideInRight 0.3s ease-out;
+        margin-bottom: 12px;
+    }
+
+    .notification-content {
+        display: flex;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .notification-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .notification-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .notification-title {
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+
+    .notification-message {
+        color: #e5e7eb;
+        font-size: 13px;
+        line-height: 1.4;
+        word-wrap: break-word;
+    }
+
+    .notification-close {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        padding: 2px;
+        border-radius: 4px;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+
+    .notification-close:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .notification-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #00ff41, #00cc33);
+        width: 100%;
+        transform-origin: left;
+        animation: progressBar var(--duration, 5s) linear forwards;
+    }
+
+    .notification.removing {
+        animation: slideOutRight 0.3s ease-in forwards;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes progressBar {
+        from {
+            transform: scaleX(1);
+        }
+        to {
+            transform: scaleX(0);
+        }
+    }
+</style>
+
+<script is:inline lang="js">
+    document.addEventListener('DOMContentLoaded', () => {
+        const notification = document.querySelector('[data-notification-id]');
+        if (!notification) return;
+
+        const duration = parseInt(notification.dataset.duration) || 5000;
+        const closeBtn = notification.querySelector('[data-close="true"]');
+
+        // Set CSS variable for progress bar duration
+        notification.style.setProperty('--duration', `${duration}ms`);
+
+        // Auto remove after duration
+        const autoRemoveTimer = setTimeout(() => {
+            removeNotification(notification);
+        }, duration);
+
+        // Manual close
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                clearTimeout(autoRemoveTimer);
+                removeNotification(notification);
+            });
+        }
+
+        function removeNotification(element) {
+            element.classList.add('removing');
+            setTimeout(() => {
+                element.remove();
+            }, 300);
+        }
+    });
+</script>
