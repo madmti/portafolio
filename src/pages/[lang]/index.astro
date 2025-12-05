@@ -10,6 +10,8 @@ import NotificationContainer from "@/components/NotificationContainer.astro";
 import GHProfile from "@/components/windows/GHProfile.astro";
 import LyossProfile from "@/components/windows/LyossProfile.astro";
 import Academic from "@/components/windows/Academic.astro";
+import ProjectLauncher from "@/components/windows/ProjectLauncher.astro";
+import Email from "@/components/windows/Email.astro";
 
 // i18n
 import { ui } from "@/i18n/ui";
@@ -44,11 +46,17 @@ export function getStaticPaths() {
             </div>
 
             <!-- Projects Workspace Terminals -->
-            <div id="projects" class="workspace"></div>
+            <div id="projects" class="workspace">
+                <div class="absolute top-30 right-20 transform">
+                    <ProjectLauncher />
+                </div>
+            </div>
 
             <!-- Contact Workspace Terminals -->
             <div id="contact" class="workspace">
-                <!-- Add Contact content here -->
+                <div class="absolute top-30 right-20 transform">
+                    <Email />
+                </div>
             </div>
 
             <!-- Home Workspace Terminals (last to use sibling selectors) -->

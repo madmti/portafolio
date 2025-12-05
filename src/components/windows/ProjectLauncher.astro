@@ -1,0 +1,149 @@
+---
+import QtWindow from "../QtWindow.astro";
+
+// i18n
+import { ui } from "@/i18n/ui";
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const t = ui[lang];
+
+// Obtener datos de proyectos desde el sistema de i18n
+const projects = t.projectsData;
+
+// Mapeo de tecnologías a iconos
+const techIcons = {
+    "Python": "/techs/python.webp",
+    "Google Colab": "/techs/colab.webp",
+    "SvelteKit": "/techs/svelte.webp",
+    "Vite": "/techs/vite.webp",
+    "Vercel": "/techs/vercel.webp",
+    "Flutter": "/techs/flutter.webp",
+    "Express": "/techs/express.webp",
+    "CosmosDB": "/techs/cosmosdb.webp",
+    "Sass": "/techs/sass.webp",
+    "Django": "/techs/django.webp",
+    "Sqlite": "/techs/sqlite.webp",
+    "Docker": "/techs/docker.webp",
+    "Astro": "/techs/astro.webp"
+};
+---
+
+<QtWindow title={t.projects.title} icon="folder" className="min-h-[600px]">
+    <div class="space-y-4">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-base-300 pb-4">
+            <div>
+                <h2 class="text-xl font-bold text-base-content">{t.projects.subtitle}</h2>
+                <p class="text-sm text-base-content/70">{t.projects.description}</p>
+            </div>
+            <div class="badge badge-outline">
+                {projects.length} {t.projects.projectCount}
+            </div>
+        </div>
+
+        <!-- Projects List -->
+        <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+            {projects.map((project) => (
+                <div class="card bg-base-200 shadow-sm border border-base-300 hover:shadow-md transition-all duration-200">
+                    <div class="card-body p-5">
+                        <div class="flex items-center gap-6">
+                            <!-- Icon -->
+                            <div class="flex-shrink-0 mr-2">
+                                <img 
+                                    src={project.icon} 
+                                    alt={`${project.title} icon`}
+                                    class="w-12 h-12 object-contain rounded-lg"
+                                />
+                            </div>
+                            
+                            <!-- Content -->
+                            <div class="flex-1 min-w-0">
+                                <!-- Title -->
+                                <div class="mb-2">
+                                    <h3 class="font-semibold text-base-content">{project.title}</h3>
+                                </div>
+                                
+                                <!-- Description -->
+                                <div class="tooltip tooltip-top" data-tip={project.description}>
+                                    <p class="text-sm text-base-content/80 mb-3 line-clamp-2 leading-relaxed cursor-help">
+                                        {project.description}
+                                    </p>
+                                </div>
+                                
+                                <!-- Technologies -->
+                                <div class="flex flex-wrap gap-2">
+                                    {project.technologies.map((tech) => (
+                                        <div class="tooltip tooltip-top" data-tip={tech}>
+                                            <img
+                                                src={techIcons[tech] || '/techs/default.webp'}
+                                                alt={tech}
+                                                class="w-6 h-6 object-contain rounded cursor-help hover:scale-110 transition-transform"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            
+                            <!-- Action Button -->
+                            <div class="flex-shrink-0">
+                                <a 
+                                    href={project.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="btn btn-primary btn-sm hover:scale-105 transition-transform"
+                                >
+                                    {t.projects.openButton}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+
+    </div>
+</QtWindow>
+
+<style>
+    /* Custom scrollbar for projects list */
+    .overflow-y-auto::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar-track {
+        background: hsl(var(--b2));
+        border-radius: 3px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar-thumb {
+        background: hsl(var(--bc) / 0.3);
+        border-radius: 3px;
+    }
+
+    .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+        background: hsl(var(--bc) / 0.5);
+    }
+
+    /* Hover effects for project cards */
+    .card:hover {
+        transform: translateY(-1px);
+    }
+
+    /* Line clamp for description */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Smooth animation for status badges */
+    .badge {
+        transition: all 0.2s ease;
+    }
+
+    /* Custom button hover effect */
+    .btn:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+</style>
