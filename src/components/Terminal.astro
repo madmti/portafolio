@@ -1,0 +1,139 @@
+---
+interface Props {
+    className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<div class={`terminal-window ${className}`} data-draggable="true">
+    <div class="terminal-content">
+        <slot />
+    </div>
+</div>
+
+<style>
+    .terminal-window {
+        background: rgba(13, 17, 23, 0.9);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        color: #00ff41;
+        padding: 24px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out;
+        overflow: auto;
+        opacity: 0.85;
+        cursor: grab;
+        user-select: none;
+    }
+
+    .terminal-window.dragging {
+        cursor: grabbing;
+        z-index: 1000;
+        position: fixed;
+        transform: rotate(2deg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .terminal-window:hover {
+        background: rgba(13, 17, 23, 0.95);
+        border-color: #00ff41;
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        opacity: 1;
+    }
+
+    .terminal-content {
+        white-space: pre-wrap;
+        line-height: 1.4;
+    }
+
+    /* Custom scrollbar */
+    .terminal-window::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .terminal-window::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .terminal-window::-webkit-scrollbar-thumb {
+        background: #30363d;
+        border-radius: 4px;
+    }
+
+    .terminal-window::-webkit-scrollbar-thumb:hover {
+        background: #484f58;
+    }
+</style>
+
+<script is:inline lang="js">
+    document.addEventListener("DOMContentLoaded", () => {
+        let isDragging = false;
+        let currentElement = null;
+        let startX = 0;
+        let startY = 0;
+
+        const terminals = document.querySelectorAll('[data-draggable="true"]');
+
+        terminals.forEach((terminal) => {
+            terminal.addEventListener("mousedown", startDrag);
+        });
+
+        function startDrag(e) {
+            isDragging = true;
+            currentElement = e.currentTarget;
+
+            // Get initial position
+            const rect = currentElement.getBoundingClientRect();
+
+            // Calculate offset from mouse to top-left corner of element
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
+
+            // Add dragging class
+            currentElement.classList.add("dragging");
+
+            // Convert to fixed positioning and preserve size
+            currentElement.style.position = "fixed";
+            currentElement.style.left = rect.left + "px";
+            currentElement.style.top = rect.top + "px";
+            currentElement.style.width = rect.width + "px";
+            currentElement.style.height = rect.height + "px";
+            currentElement.style.margin = "0";
+
+            // Add global event listeners
+            document.addEventListener("mousemove", drag);
+            document.addEventListener("mouseup", stopDrag);
+
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            if (!isDragging || !currentElement) return;
+
+            const newX = e.clientX - startX;
+            const newY = e.clientY - startY;
+
+            currentElement.style.left = newX + "px";
+            currentElement.style.top = newY + "px";
+        }
+
+        function stopDrag() {
+            if (!isDragging || !currentElement) return;
+
+            isDragging = false;
+            currentElement.classList.remove("dragging");
+
+            // Keep the terminal in its new position but maintain fixed positioning
+            // Reset some styles but keep position
+            currentElement.style.transform = "none";
+
+            // Remove global event listeners
+            document.removeEventListener("mousemove", drag);
+            document.removeEventListener("mouseup", stopDrag);
+
+            currentElement = null;
+        }
+    });
+</script>
