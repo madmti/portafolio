@@ -1,0 +1,182 @@
+---
+import FirefoxWindow from "../FirefoxWindow.astro";
+
+// i18n
+import { ui } from "@/i18n/ui";
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const t = ui[lang];
+
+// Importar datos académicos desde JSON
+const academicData = t.academicData;
+
+// Calcular estadísticas
+const totalSubjects = academicData.reduce(
+    (total, semester) => total + semester.subjects.length,
+    0,
+);
+const approvedSubjects = academicData.reduce(
+    (total, semester) =>
+        total +
+        semester.subjects.filter(
+            (subject) =>
+                subject.status === "Aprobado" ||
+                subject.status === "Passed",
+        ).length,
+    0,
+);
+const failedSubjects = totalSubjects - approvedSubjects;
+---
+
+<FirefoxWindow
+    title={t.academic.title}
+    url="https://siga.usm.cl"
+    favicon="web"
+>
+    <!-- Header UTFSM -->
+    <div
+        class="p-4 flex items-center justify-between"
+        style="background-color: #033558"
+    >
+        <div class="flex items-center gap-3">
+            <div class="p-2 rounded" style="background-color: #F8F8F8">
+                <div class="font-bold text-xl" style="color: #033558">
+                    UTFSM
+                </div>
+            </div>
+            <div style="color: #F8F8F8">
+                <h1 class="text-xl font-bold">UNIVERSIDAD TÉCNICA</h1>
+                <h2 class="text-lg">FEDERICO SANTA MARÍA</h2>
+            </div>
+        </div>
+        <div
+            class="px-4 py-2 rounded-lg text-white flex flex-row items-center"
+            style="background-color: #FF9C00"
+        >
+            <div class="font-bold text-3xl">SIGA</div>
+            <div class="ml-4 flex flex-col leading-tight">
+                <div class="text-xs">{t.academic.systemName}</div>
+                <div class="text-xs">{t.academic.systemName2}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Info Bar -->
+    <div
+        class="p-3 flex items-center justify-between text-sm text-white"
+        style="background-color: #033558"
+    >
+        <div>{t.academic.studentSession}</div>
+        <div class="flex gap-4">
+            <span>{t.academic.studentLocation}</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="p-2 border-b" style="background-color: #F8F8F8; color: #033558">
+        <span class="font-semibold">{t.academic.curricularProgress}</span>
+    </div>
+
+    <!-- Student Info Section -->
+    <div
+        class="p-4 grid grid-cols-2 gap-8 border-b"
+        style="background-color: #F8F8F8"
+    >
+        <div class="space-y-2">
+            <div><strong>{t.academic.student}</strong> {t.academic.studentPlaceholder}</div>
+            <div>
+                <strong>{t.academic.career}</strong> {t.academic.careerName}
+            </div>
+        </div>
+        <div class="space-y-2 text-right">
+            <div><strong>{t.academic.rut}</strong> {t.academic.rutPlaceholder}</div>
+            <div><strong>{t.academic.role}</strong> {t.academic.rolePlaceholder}</div>
+        </div>
+    </div>
+
+    <!-- Academic Statistics -->
+    <div class="p-4 border-b" style="background-color: #F8F8F8">
+        <div class="flex justify-center gap-8">
+            <div class="text-center">
+                <div class="text-2xl font-bold" style="color: #FF9C00">
+                    {approvedSubjects}
+                </div>
+                <div class="text-sm font-medium" style="color: #033558">
+                    {t.academic.approved}
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold" style="color: #033558">
+                    {failedSubjects}
+                </div>
+                <div class="text-sm font-medium" style="color: #033558">
+                    {t.academic.failed}
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold" style="color: #033558">
+                    {totalSubjects}
+                </div>
+                <div class="text-sm font-medium" style="color: #033558">
+                    {t.academic.total}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Academic Progress Tables -->
+    <div class="p-6 space-y-8">
+        {
+            academicData.map((semester) => {
+                const subjectCount = semester.subjects.length;
+
+                return (
+                    <div>
+                        <div
+                            class="p-3 text-white font-semibold text-lg flex justify-between items-center"
+                            style="background-color: #033558"
+                        >
+                            <span>{t.academic.semester} {semester.code}</span>
+                            <span class="text-sm font-normal opacity-80">
+                                {subjectCount} {t.academic.subjects}
+                            </span>
+                        </div>
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4"
+                            style="background-color: #F8F8F8"
+                        >
+                            {semester.subjects.map((subject) => (
+                                <div
+                                    class="flex items-center justify-between p-3 rounded border"
+                                    style="border-color: #033558"
+                                >
+                                    <span class="font-medium">
+                                        {subject.name}
+                                    </span>
+                                    <span
+                                        class="px-3 py-1 rounded text-white"
+                                        style="background-color: #FF9C00"
+                                    >
+                                        {subject.status}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            })
+        }
+    </div>
+
+    <!-- Footer -->
+    <div
+        class="p-3 flex justify-between items-center text-white"
+        style="background-color: #FF9C00"
+    >
+        <button class="px-4 py-2 rounded" style="background-color: #033558"
+            >{t.academic.print}</button
+        >
+        <button class="px-4 py-2 rounded" style="background-color: #033558"
+            >{t.academic.back}</button
+        >
+    </div>
+</FirefoxWindow>

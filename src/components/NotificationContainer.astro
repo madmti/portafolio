@@ -1,5 +1,8 @@
 ---
-// NotificationContainer - Manages multiple notifications like Hyprland
+// i18n
+import { ui } from "@/i18n/ui";
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const t = ui[lang];
 ---
 
 <div id="notification-container" class="notification-container">
@@ -26,7 +29,7 @@
     }
 </style>
 
-<script is:inline lang="js">
+<script is:inline lang="js" define:vars={{ t }}>
     // Global notification system
     class NotificationManager {
         constructor() {
@@ -145,8 +148,8 @@
     // Show welcome notification when page loads
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
-            window.notifications.info('👋 Hi there! Welcome to my portfolio.', {
-                title: 'System',
+            window.notifications.info(t.welcome.content, {
+                title: t.welcome.title,
                 duration: 4000
             });
         }, 1000);
