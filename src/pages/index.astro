@@ -1,8 +1,12 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-
+import Donut3D from "../components/Donut3D.astro";
+import Navigation from "../components/Navigation.astro";
 ---
 
 <MainLayout title="Madmti">
-    <h1>Hola!</h1>
+    <main class="min-h-screen bg-base-100 flex items-center justify-center">
+        <Navigation />
+        <Donut3D />
+    </main>
 </MainLayout>

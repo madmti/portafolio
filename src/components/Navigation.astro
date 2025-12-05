@@ -1,0 +1,147 @@
+---
+// Navigation component for Astro with island-style design
+---
+
+<nav class="fixed top-4 left-0 right-0 z-50 px-4">
+    <div class="flex items-center justify-between gap-4 max-w-7xl mx-auto">
+        <!-- Left section - Menu Islands -->
+        <div class="flex items-center gap-4">
+            <!-- Navigation Menu Island -->
+            <div
+                class="bg-base-100 shadow-lg rounded-full px-3 py-1 border border-base-300 h-10 flex items-center"
+            >
+                <div class="flex items-center gap-1">
+                    <a
+                        href="/"
+                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                    >
+                        Home
+                    </a>
+                    <a
+                        href="/about"
+                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                    >
+                        About
+                    </a>
+                    <a
+                        href="/projects"
+                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                    >
+                        Projects
+                    </a>
+                    <a
+                        href="/contact"
+                        class="px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
+                    >
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center section - Clock Island -->
+        <div
+            class="bg-base-100 shadow-lg rounded-full px-4 py-1 border border-base-300 h-10 flex items-center"
+        >
+            <div class="text-sm font-mono text-base-content">
+                <span id="clock">14:32</span>
+            </div>
+        </div>
+
+        <!-- Right section - System indicators Islands -->
+        <div class="flex items-center gap-4">
+            <!-- System Status Island -->
+            <div
+                class="bg-base-100 shadow-lg rounded-full px-3 py-1 border border-base-300 h-10 flex items-center"
+            >
+                <div class="flex items-center gap-3">
+                    <!-- Network indicator -->
+                    <div
+                        class="flex items-center gap-1 text-xs text-base-content/80"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"
+                            ></path>
+                        </svg>
+                        <span>WiFi</span>
+                    </div>
+
+                    <!-- Audio indicator -->
+                    <div
+                        class="flex items-center gap-1 text-xs text-base-content/80"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM15.657 6.343a1 1 0 011.414 1.414A4.98 4.98 0 0118 10a4.98 4.98 0 01-.929 2.243 1 1 0 11-1.414-1.414A2.98 2.98 0 0016 10c0-.746-.156-1.456-.343-2.657z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span>75%</span>
+                    </div>
+
+                    <!-- Battery indicator -->
+                    <div
+                        class="flex items-center gap-1 text-xs text-base-content/80"
+                    >
+                        <svg
+                            class="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                d="M4 9V7a2 2 0 012-2h8a2 2 0 012 2v2h1a1 1 0 011 1v2a1 1 0 01-1 1h-1v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2H3a1 1 0 01-1-1v-2a1 1 0 011-1h1zm11 4V7H5v6h10z"
+                            ></path>
+                        </svg>
+                        <span>85%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Island -->
+            <div
+                class="bg-base-100 shadow-lg rounded-full px-3 py-1 border border-base-300 h-10 flex items-center"
+            >
+                <span
+                    class="text-sm font-medium font-mono text-base-content/80 mx-2"
+                >
+                    madmti
+                </span>
+                <div class="avatar">
+                    <picture class="w-6 rounded-xl overflow-hidden">
+                        <img
+                            src="https://github.com/madmti.png"
+                            alt="User Avatar"
+                            class="w-6 h-6"
+                        />
+                    </picture>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Update clock
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const clockElement = document.getElementById("clock");
+        if (clockElement) {
+            clockElement.textContent = `${hours}:${minutes}`;
+        }
+    }
+
+    // Update clock immediately and then every minute
+    updateClock();
+    setInterval(updateClock, 60000);
+</script>
