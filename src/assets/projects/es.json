@@ -1,0 +1,36 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "icon": "/analisis_autos.png",
+            "title": "EDA Automóviles",
+            "description": "Análisis exploratorio de datos a un dataset de automóviles que incluye una gran variedad de métodos y pruebas para el análisis de datos.",
+            "technologies": ["Python", "Google Colab"],
+            "link": "https://colab.research.google.com/drive/1XRXwAjej0ckybiYi3LHFj-ltwO6ZsBH_?usp=sharing"
+        },
+        {
+            "id": 2,
+            "icon": "/ramo_libre.svg",
+            "title": "Ramo Libre",
+            "description": "Aplicación Web SPA/SSG offline-first que permite gestionar horarios académicos, calcular notas con predicciones matemáticas (LP), organizar eventos y seguimiento del progreso universitario.",
+            "technologies": ["SvelteKit", "Vite", "Vercel"],
+            "link": "https://ramolibre.vercel.app/"
+        },
+        {
+            "id": 3,
+            "icon": "/room_track.png",
+            "title": "Room Track",
+            "description": "Aplicación diseñada para facilitar la búsqueda de salas, edificios y otros lugares dentro de la Universidad Técnica Federico Santa María (USM).",
+            "technologies": ["Flutter", "Express", "CosmosDB"],
+            "link": "https://github.com/Room-Track"
+        },
+        {
+            "id": 4,
+            "icon": "/technocat.png",
+            "title": "TechnoCat",
+            "description": "Aplicación web diseñada para incentivar el reciclaje y acciones que conlleven a un espacio menos contaminado a través de la interactividad.",
+            "technologies": ["Sass", "Django", "Sqlite", "Docker"],
+            "link": "https://github.com/madmti/TechnoCat"
+        }
+    ]
+}

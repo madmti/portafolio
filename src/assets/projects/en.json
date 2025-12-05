@@ -1,0 +1,36 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "icon": "/analisis_autos.png",
+            "title": "EDA Automobiles",
+            "description": "Exploratory data analysis of an automobile dataset that includes a wide variety of methods and tests for data analysis.",
+            "technologies": ["Python", "Google Colab"],
+            "link": "https://colab.research.google.com/drive/1XRXwAjej0ckybiYi3LHFj-ltwO6ZsBH_?usp=sharing"
+        },
+        {
+            "id": 2,
+            "icon": "/ramo_libre.svg",
+            "title": "Ramo Libre",
+            "description": "Offline-first SPA/SSG Web Application that allows managing academic schedules, calculating grades with mathematical predictions (LP), organizing events and tracking university progress.",
+            "technologies": ["SvelteKit", "Vite", "Vercel"],
+            "link": "https://ramolibre.vercel.app/"
+        },
+        {
+            "id": 3,
+            "icon": "/room_track.png",
+            "title": "Room Track",
+            "description": "Application designed to facilitate the search for classrooms, buildings and other places within the Universidad Técnica Federico Santa María (USM).",
+            "technologies": ["Flutter", "Express", "CosmosDB"],
+            "link": "https://github.com/Room-Track"
+        },
+        {
+            "id": 4,
+            "icon": "/technocat.png",
+            "title": "TechnoCat",
+            "description": "Web application designed to incentivize recycling and actions that lead to a less polluted space through interactivity.",
+            "technologies": ["Sass", "Django", "Sqlite", "Docker"],
+            "link": "https://github.com/madmti/TechnoCat"
+        }
+    ]
+}
