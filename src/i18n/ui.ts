@@ -64,6 +64,7 @@ export const ui = {
             github: "GitHub",
             linkedin: "LinkedIn",
             email: "Correo",
+            cv: "CV",
             connectMessage: "¡Conectemos! 🚀"
         },
         academic: {
@@ -200,6 +201,7 @@ export const ui = {
             github: "GitHub",
             linkedin: "LinkedIn",
             email: "Email",
+            cv: "CV",
             connectMessage: "Let's connect! 🚀"
         },
         academic: {
