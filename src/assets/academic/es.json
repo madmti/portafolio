@@ -113,6 +113,10 @@
                 {
                     "name": "Matemáticas IV",
                     "status": "Aprobado"
+                },
+                {
+                    "name": "Taller de Ciberseguridad",
+                    "status": "Aprobado"
                 }
             ]
         },

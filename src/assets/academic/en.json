@@ -113,6 +113,10 @@
                 {
                     "name": "Mathematics IV",
                     "status": "Passed"
+                },
+                {
+                    "name": "Cybersecurity Workshop",
+                    "status": "Passed"
                 }
             ]
         },
