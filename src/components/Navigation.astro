@@ -44,7 +44,7 @@
             class="bg-base-100 shadow-lg rounded-full px-4 py-1 border border-base-300 h-10 flex items-center"
         >
             <div class="text-sm font-mono text-base-content">
-                <span id="clock">14:32</span>
+                <span id="date-display"></span>
             </div>
         </div>
 
@@ -129,19 +129,15 @@
     </div>
 </nav>
 
-<script>
-    // Update clock
-    function updateClock() {
+<script is:inline lang="js">
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateDisplay = document.getElementById("date-display");
         const now = new Date();
-        const hours = now.getHours().toString().padStart(2, "0");
-        const minutes = now.getMinutes().toString().padStart(2, "0");
-        const clockElement = document.getElementById("clock");
-        if (clockElement) {
-            clockElement.textContent = `${hours}:${minutes}`;
-        }
-    }
-
-    // Update clock immediately and then every minute
-    updateClock();
-    setInterval(updateClock, 60000);
+        const formattedDate = now.toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
+        dateDisplay.textContent = formattedDate;
+    });
 </script>

@@ -3,67 +3,139 @@ import MainLayout from "../layouts/MainLayout.astro";
 import Donut3D from "../components/Donut3D.astro";
 import Navigation from "../components/Navigation.astro";
 import Terminal from "../components/Terminal.astro";
+import EmptyPrompt from "../components/EmptyPrompt.astro";
 import NotificationContainer from "../components/NotificationContainer.astro";
 ---
 
 <MainLayout title="Madmti">
-    <main class="min-h-screen bg-base-100 flex items-center justify-center">
+    <main class="min-h-screen bg-base-100 flex items-center justify-center relative">
         <Navigation />
-        <Donut3D />
+
+        <!-- Donut 3D Background -->
+        <div class="donut-background">
+            <Donut3D />
+        </div>
+
         <NotificationContainer />
+
+        <!-- Terminal Windows Container -->
+        <div id="terminal-workspace" class="terminal-workspace">
+
+            <!-- About Workspace Terminals -->
+            <div id="about" class="workspace">
+                <!-- Add About content here -->
+            </div>
+
+            <!-- Projects Workspace Terminals -->
+            <div id="projects" class="workspace">
+                <!-- Add Projects content here -->
+            </div>
+
+            <!-- Contact Workspace Terminals -->
+            <div id="contact" class="workspace">
+                <!-- Add Contact content here -->
+            </div>
+
+            <!-- Home Workspace Terminals (last to use sibling selectors) -->
+            <div id="home" class="workspace">
+                <Terminal className="absolute top-40 left-20 w-[750px]">
+                    <p class="text-gray-300">
+                        <strong class="text-green-400">madmti@localhost:~$</strong> whoami
+                    </p>
+                    <p class="text-white whitespace-normal">
+                        I'm Matias Peñaloza, also known as <strong class="text-green-400">madmti</strong>.
+                        A passionate engineer who transforms complex problems into elegant digital solutions.
+                        Currently pursuing my degree at <strong class="text-blue-400">Universidad Técnica Federico Santa María</strong>,
+                        where I blend academic rigor with real-world innovation.
+                    </p>
+                    <br />
+                    <p class="text-gray-300">
+                        <strong class="text-green-400">madmti@localhost:~$</strong> cat philosophy.txt
+                    </p>
+                    <p class="text-white whitespace-normal">
+                        I believe in the power of <strong class="text-orange-400">Open Source</strong> to democratize technology.
+                        Every system should be efficient, every interface intuitive, and every solution sustainable.
+                        Beyond code: music enthusiast, table tennis player, and board sports lover.
+                    </p>
+                    <br />
+                    <EmptyPrompt />
+                </Terminal>
+
+                <Terminal className="absolute bottom-40 right-20 w-[600px]">
+                    <p class="text-gray-300">
+                        <strong class="text-green-400">madmti@localhost:~$</strong> echo "Current mission?"
+                    </p>
+                    <p class="text-white whitespace-normal">
+                        Contributing to my university's <strong class="text-purple-400"
+                            >Open Source Initiative</strong
+                        > while exploring the intersection of performance optimization and user
+                        experience.
+                    </p>
+                </Terminal>
+            </div>
+        </div>
     </main>
-    <Terminal className="absolute top-40 left-20 w-[750px]">
-        <p class="text-gray-300">
-            <strong class="text-green-400">madmti@localhost:~$</strong> whoami
-        </p>
-        <p class="text-white whitespace-normal">
-            I'm Matias Peñaloza, also known as <strong class="text-green-400"
-                >madmti</strong
-            >. A passionate engineer who transforms complex problems into
-            elegant digital solutions. Currently pursuing my degree at <strong
-                class="text-blue-400"
-                >Universidad Técnica Federico Santa María</strong
-            >, where I blend academic rigor with real-world innovation.
-        </p>
-        <br />
-        <p class="text-gray-300">
-            <strong class="text-green-400">madmti@localhost:~$</strong> cat philosophy.txt
-        </p>
-        <p class="text-white whitespace-normal">
-            I believe in the power of <strong class="text-orange-400"
-                >Open Source</strong
-            > to democratize technology. Every system should be efficient, every interface
-            intuitive, and every solution sustainable. Beyond code: music enthusiast,
-            table tennis player, and board sports lover.
-        </p>
-        <br />
-        <p class="text-gray-300">
-            <strong class="text-green-400">madmti@localhost:~$</strong> ls -la interests/
-        </p>
-        <p class="text-white whitespace-normal">
-            drwxr-xr-x systems/ <span class="text-cyan-400"
-                ># DevOps, sysadmin & low-level OS tooling</span
-            >
-            <br />drwxr-xr-x web/ <span class="text-cyan-400"
-                ># Full-stack development: robust & scalable backend + UI</span
-            >
-            <br />drwxr-xr-x data/ <span class="text-cyan-400"
-                ># Extracting insights from complex datasets</span
-            >
-            <br />drwxr-xr-x automation/ <span class="text-cyan-400"
-                ># Building tools that work while you sleep</span
-            >
-        </p>
-    </Terminal>
-    <Terminal className="absolute top-55 right-20 w-[600px]">
-        <p class="text-gray-300">
-            <strong class="text-green-400">madmti@localhost:~$</strong> echo "Current mission?"
-        </p>
-        <p class="text-white whitespace-normal">
-            Contributing to my university's <strong class="text-purple-400"
-                >Open Source Initiative</strong
-            > while exploring the intersection of performance optimization and user
-            experience.
-        </p>
-    </Terminal>
 </MainLayout>
+
+<style>
+    .donut-background {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .terminal-workspace {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* Base workspace styles - hidden by default */
+    .workspace {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+        pointer-events: none;
+    }
+
+    .workspace > * {
+        pointer-events: auto;
+    }
+
+    /* Show home workspace when no hash is present */
+    #home {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Show any targeted workspace */
+    .workspace:target {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Hide home when other specific workspaces are targeted */
+    #about:target ~ #home,
+    #projects:target ~ #home,
+    #contact:target ~ #home {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Smooth scroll behavior for hash navigation */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
