@@ -1,0 +1,178 @@
+{
+    "academicRecord": [
+        {
+            "code": "2023-1",
+            "subjects": [
+                {
+                    "name": "Physical Education I",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Introduction to Physics",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Ethics and Critical Argumentation",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Programming",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Mathematics I",
+                    "status": "Passed"
+                }
+            ]
+        },
+        {
+            "code": "2023-2",
+            "subjects": [
+                {
+                    "name": "Physical Education II",
+                    "status": "Passed"
+                },
+                {
+                    "name": "General Physics I",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Contemporary Society and Politics",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Introduction to Engineering",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Mathematics II",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Chemistry and Society",
+                    "status": "Passed"
+                }
+            ]
+        },
+        {
+            "code": "2024-1",
+            "subjects": [
+                {
+                    "name": "General Physics II",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Fundamentals of Operations Research",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Elective Course I",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Data Structures",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Discrete Structures",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Systems Theory",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Mathematics III",
+                    "status": "Passed"
+                }
+            ]
+        },
+        {
+            "code": "2024-2",
+            "subjects": [
+                {
+                    "name": "General Physics III",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Economics I-A",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Theoretical Computer Science",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Programming Languages",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Mobile Applications",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Mathematics IV",
+                    "status": "Passed"
+                }
+            ]
+        },
+        {
+            "code": "2025-1",
+            "subjects": [
+                {
+                    "name": "General Physics IV",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Databases",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Computer Architecture and Organization",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Organizations and Information Systems",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Computational Statistics",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Introduction to Explainable Artificial Intelligence",
+                    "status": "Passed"
+                }
+            ]
+        },
+        {
+            "code": "2025-2",
+            "subjects": [
+                {
+                    "name": "Athletics",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Information and Financial Mathematics",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Algorithms and Complexity",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Software Analysis and Design",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Operating Systems",
+                    "status": "Passed"
+                },
+                {
+                    "name": "Engineering, Informatics and Society",
+                    "status": "Passed"
+                }
+            ]
+        }
+    ]
+}

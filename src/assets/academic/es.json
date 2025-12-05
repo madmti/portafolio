@@ -1,0 +1,178 @@
+{
+    "academicRecord": [
+        {
+            "code": "2023-1",
+            "subjects": [
+                {
+                    "name": "Educación Física I",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Introducción a la Física",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Ética y Argumentación Crítica",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Programación",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Matemática I",
+                    "status": "Aprobado"
+                }
+            ]
+        },
+        {
+            "code": "2023-2",
+            "subjects": [
+                {
+                    "name": "Educación Física II",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Física General I",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Sociedad y Política Contemporánea",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Introducción a la Ingeniería",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Matemática II",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Química y Sociedad",
+                    "status": "Aprobado"
+                }
+            ]
+        },
+        {
+            "code": "2024-1",
+            "subjects": [
+                {
+                    "name": "Física General II",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Fund. de Inv. de Operaciones",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Asignatura Libre I",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Estructuras de Datos",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Estructuras Discretas",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Teoría de Sistemas",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Matemáticas III",
+                    "status": "Aprobado"
+                }
+            ]
+        },
+        {
+            "code": "2024-2",
+            "subjects": [
+                {
+                    "name": "Física General III",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Economía I-A",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Informática Teórica",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Lenguajes de Programación",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Aplicaciones Móviles",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Matemáticas IV",
+                    "status": "Aprobado"
+                }
+            ]
+        },
+        {
+            "code": "2025-1",
+            "subjects": [
+                {
+                    "name": "Física General IV",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Bases de Datos",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Arquitectura y Organización de Computadores",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Organizaciones y Sistemas de Información",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Estadística Computacional",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Introducción a la Inteligencia Artificial Explicable",
+                    "status": "Aprobado"
+                }
+            ]
+        },
+        {
+            "code": "2025-2",
+            "subjects": [
+                {
+                    "name": "Atletismo",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Información y Matemática Financiera",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Algoritmos y Complejidad",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Análisis y Diseño de Software",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Sistemas Operativos",
+                    "status": "Aprobado"
+                },
+                {
+                    "name": "Ingeniería, Informática y Sociedad",
+                    "status": "Aprobado"
+                }
+            ]
+        }
+    ]
+}

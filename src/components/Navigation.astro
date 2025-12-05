@@ -1,5 +1,8 @@
 ---
-// Navigation component for Astro with island-style design
+// i18n
+import { ui } from "@/i18n/ui";
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const t = ui[lang];
 ---
 
 <nav class="fixed top-4 left-0 right-0 z-50 px-4">
@@ -15,25 +18,25 @@
                         href="#home"
                         class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
-                        Home
+                        {t.nav.home}
                     </a>
                     <a
                         href="#about"
                         class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
-                        About
+                        {t.nav.academic}
                     </a>
                     <a
                         href="#projects"
                         class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
-                        Projects
+                        {t.nav.projects}
                     </a>
                     <a
                         href="#contact"
                         class="nav-link px-2 py-1 text-sm font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 rounded-lg transition-colors"
                     >
-                        Contact
+                        {t.nav.contact}
                     </a>
                 </div>
             </div>
@@ -50,6 +53,35 @@
 
         <!-- Right section - System indicators Islands -->
         <div class="flex items-center gap-4">
+            <!-- Language Switcher Island -->
+            <div
+                class="bg-base-100 shadow-lg rounded-full px-3 py-1 border border-base-300 h-10 flex items-center"
+            >
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-xs gap-1 text-base-content/80 hover:text-base-content">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="current-lang" class="text-xs font-medium">ES</span>
+                        <svg class="w-3 h-3" viewBox="0 0 20 20">
+                            <path fill="currentColor" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/>
+                        </svg>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 border border-base-300 rounded-box z-[1] w-20 p-1 shadow-lg">
+                        <li>
+                            <button class="lang-option text-xs justify-center" data-lang="es">
+                                🇨🇱 ES
+                            </button>
+                        </li>
+                        <li>
+                            <button class="lang-option text-xs justify-center" data-lang="en">
+                                🇺🇸 EN
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- System Status Island -->
             <div
                 class="bg-base-100 shadow-lg rounded-full px-3 py-1 border border-base-300 h-10 flex items-center"
@@ -153,9 +185,23 @@
         background: rgb(var(--primary));
         border-radius: 50%;
     }
+
+    /* Language dropdown styling */
+    .dropdown-content {
+        margin-top: 0.5rem;
+    }
+
+    .lang-option:hover {
+        background: rgb(var(--base-200));
+    }
+
+    .lang-option.active {
+        background: rgb(var(--primary));
+        color: rgb(var(--primary-content));
+    }
 </style>
 
-<script is:inline lang="js">
+<script is:inline>
     document.addEventListener("DOMContentLoaded", function () {
         // Update date display
         const dateDisplay = document.getElementById("date-display");
@@ -185,5 +231,64 @@
 
         // Update when hash changes
         window.addEventListener('hashchange', updateActiveLink);
+
+        // Language switcher functionality
+        const currentLangSpan = document.getElementById('current-lang');
+        const langOptions = document.querySelectorAll('.lang-option');
+
+        // Get current language from URL or default to 'es'
+        const currentPath = window.location.pathname;
+        const currentLang = currentPath.startsWith('/en') ? 'en' : 'es';
+
+        // Update current language display
+        currentLangSpan.textContent = currentLang.toUpperCase();
+
+        // Mark active language option
+        langOptions.forEach(option => {
+            const lang = option.getAttribute('data-lang');
+            if (lang === currentLang) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+
+        // Handle language change
+        langOptions.forEach(option => {
+            option.addEventListener('click', function(e) {
+                const selectedLang = this.getAttribute('data-lang');
+                const currentPath = window.location.pathname;
+                const currentHash = window.location.hash;
+
+                let newPath;
+                if (selectedLang === 'en') {
+                    // Switch to English
+                    if (currentPath === '/' || currentPath === '/es' || currentPath === '/es/') {
+                        newPath = '/en/';
+                    } else if (currentPath.startsWith('/es/')) {
+                        newPath = currentPath.replace('/es/', '/en/');
+                    } else if (!currentPath.startsWith('/en/')) {
+                        newPath = '/en' + currentPath;
+                    } else {
+                        newPath = currentPath;
+                    }
+                } else {
+                    // Switch to Spanish
+                    if (currentPath.startsWith('/en/')) {
+                        newPath = currentPath.replace('/en/', '/');
+                    } else if (currentPath === '/en') {
+                        newPath = '/';
+                    } else {
+                        newPath = currentPath;
+                    }
+                }
+
+                // Close dropdown before navigating
+                document.activeElement.blur();
+
+                // Navigate to the new path with the current hash
+                window.location.href = newPath + currentHash;
+            });
+        });
     });
 </script>

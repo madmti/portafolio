@@ -1,0 +1,163 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import Donut3D from "@/components/Donut3D.astro";
+import Navigation from "@/components/Navigation.astro";
+import Terminal from "@/components/Terminal.astro";
+import EmptyPrompt from "@/components/EmptyPrompt.astro";
+import NotificationContainer from "@/components/NotificationContainer.astro";
+
+// Windows
+import GHProfile from "@/components/windows/GHProfile.astro";
+import LyossProfile from "@/components/windows/LyossProfile.astro";
+import Academic from "@/components/windows/Academic.astro";
+
+// i18n
+import { ui } from "@/i18n/ui";
+const lang = (Astro.currentLocale || "es") as "es" | "en";
+const t = ui[lang];
+
+export function getStaticPaths() {
+    return [{ params: { lang: "es" } }, { params: { lang: "en" } }];
+}
+---
+
+<MainLayout title="Madmti">
+    <main
+        class="min-h-screen bg-base-100 flex items-center justify-center relative"
+    >
+        <Navigation />
+
+        <!-- Donut 3D Background -->
+        <div class="donut-background">
+            <Donut3D />
+        </div>
+
+        <NotificationContainer />
+
+        <!-- Terminal Windows Container -->
+        <div id="terminal-workspace" class="terminal-workspace">
+            <!-- About Workspace Terminals -->
+            <div id="about" class="workspace">
+                <div class="absolute top-20 left-20 transform">
+                    <Academic />
+                </div>
+            </div>
+
+            <!-- Projects Workspace Terminals -->
+            <div id="projects" class="workspace"></div>
+
+            <!-- Contact Workspace Terminals -->
+            <div id="contact" class="workspace">
+                <!-- Add Contact content here -->
+            </div>
+
+            <!-- Home Workspace Terminals (last to use sibling selectors) -->
+            <div id="home" class="workspace">
+                <div class="absolute top-40 right-40">
+                    <GHProfile />
+                </div>
+                <div class="absolute bottom-10 left-20 transform">
+                    <LyossProfile />
+                </div>
+
+                <Terminal className="absolute top-40 left-20 w-[750px]">
+                    {t.home.term1.map((item, index) => (
+                        item.command ? (
+                            <p class="text-gray-300">
+                                <strong class="text-green-400">madmti@localhost:~$</strong> {item.text}
+                            </p>
+                        ) : (
+                            <p class="text-white whitespace-normal my-4" set:html={
+                                Object.entries(item.colors || {}).reduce((text: string, [phrase, colorClass]) => {
+                                    return text.replace(new RegExp(phrase, 'g'), `<strong class="${colorClass}">${phrase}</strong>`);
+                                }, item.text)
+                            } />
+                        )
+                    ))}
+                    <EmptyPrompt />
+                </Terminal>
+
+                <Terminal className="absolute bottom-40 right-20 w-[600px]">
+                    {t.home.term2.map((item, index) => (
+                        item.command ? (
+                            <p class="text-gray-300">
+                                <strong class="text-green-400">madmti@localhost:~$</strong> {item.text}
+                            </p>
+                        ) : (
+                            <p class={"text-white whitespace-normal" + (index != t.home.term2.length - 1 ? " my-4" : " mt-4")} set:html={
+                                Object.entries(item.colors || {}).reduce((text: string, [phrase, colorClass]) => {
+                                    return text.replace(new RegExp(phrase, 'g'), `<strong class="${colorClass}">${phrase}</strong>`);
+                                }, item.text)
+                            } />
+                        )
+                    ))}
+                </Terminal>
+            </div>
+        </div>
+    </main>
+</MainLayout>
+
+<style>
+    .donut-background {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .terminal-workspace {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* Base workspace styles - hidden by default */
+    .workspace {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.6s ease,
+            visibility 0.6s ease;
+        pointer-events: none;
+    }
+
+    .workspace > * {
+        pointer-events: auto;
+    }
+
+    /* Show home workspace when no hash is present */
+    #home {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Show any targeted workspace */
+    .workspace:target {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Hide home when other specific workspaces are targeted */
+    #about:target ~ #home,
+    #projects:target ~ #home,
+    #contact:target ~ #home {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Smooth scroll behavior for hash navigation */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
