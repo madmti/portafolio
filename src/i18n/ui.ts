@@ -1,5 +1,7 @@
 import aces from "@/assets/academic/es.json";
 import acen from "@/assets/academic/en.json";
+import pses from "@/assets/projects/es.json";
+import psen from "@/assets/projects/en.json";
 
 export const ui = {
     es: {
@@ -13,7 +15,49 @@ export const ui = {
             title: "Sistema",
             content: "👋 Hola, bienvenido a mi portafolio digital.",
         },
+        projectsData: pses.projects,
         academicData: aces.academicRecord,
+        projects: {
+            title: "Project Launcher",
+            subtitle: "Mis Proyectos",
+            description: "Lista de proyectos personales y contribuciones",
+            projectCount: "proyectos",
+            openButton: "Abrir"
+        },
+        email: {
+            title: "Outlook - Nuevo mensaje",
+            header: "Contáctame directamente",
+            sendButton: "Enviar",
+            sendMessage: "Enviar mensaje",
+            to: "Para:",
+            from: "De:",
+            subject: "Asunto:",
+            message: "Mensaje:",
+            subjectPlaceholder: "Escribe el asunto del mensaje",
+            fromPlaceholder: "tu-email@ejemplo.com",
+            messagePlaceholder: "Escribe tu mensaje aquí...",
+            encryptionEnabled: "Cifrado de extremo a extremo habilitado",
+            responseTime: "Tu mensaje será enviado directamente a mi bandeja de entrada. Normalmente respondo en un plazo de 24-48 horas.",
+            sending: "Enviando...",
+            notifications: {
+                fieldsRequired: {
+                    title: "Campos requeridos",
+                    message: "Por favor completa todos los campos antes de enviar."
+                },
+                emailSent: {
+                    title: "Email enviado",
+                    message: "¡Mensaje enviado exitosamente! Te responderé pronto."
+                },
+                sendError: {
+                    title: "Error al enviar",
+                    message: "Hubo un error al enviar el mensaje. Por favor intenta nuevamente."
+                },
+                connectionError: {
+                    title: "Error de conexión",
+                    message: "Error de conexión. Por favor verifica tu internet e intenta nuevamente."
+                }
+            }
+        },
         academic: {
             title: "SIGA - Sistema de Información de Gestión Académica",
             systemName: "SISTEMA DE INFORMACIÓN",
@@ -59,7 +103,7 @@ export const ui = {
                 },
                 {
                     command: false,
-                    text: "Creo en el poder del Open Source para democratizar la tecnología. Cada sistema debe ser eficiente, cada interfaz intuitiva y cada solución sostenible. Más allá del código: entusiasta de la música, jugador de tenis de mesa y amante de los deportes de tabla.",
+                    text: "Creo en el poder del Open Source para democratizar la tecnología. Cada sistema debe ser eficiente, cada interfaz intuitiva y cada solución sostenible. Más allá del código: entusiasta de la música, jugador de tenis de mesa y amante de los deportes con tabla.",
                     colors: {
                         "Open Source": "text-orange-400",
                     },
@@ -82,6 +126,7 @@ export const ui = {
                 btn: "Ver Github",
             },
             ghorg: {
+                name: "Linux y Open Source USM",
                 btn: "Ver Organización",
                 desc: "LyossUSM es una iniciativa de comunidad para Linux y OpenSource de la Universidad Técnica Federico Santa María",
             },
@@ -98,7 +143,49 @@ export const ui = {
             title: "System",
             content: "👋 Hi there! Welcome to my portfolio.",
         },
+        projectsData: psen.projects,
         academicData: acen.academicRecord,
+        projects: {
+            title: "Project Launcher",
+            subtitle: "My Projects",
+            description: "List of personal projects and contributions",
+            projectCount: "projects",
+            openButton: "Open"
+        },
+        email: {
+            title: "Outlook - New message",
+            header: "Contact me directly",
+            sendButton: "Send",
+            sendMessage: "Send message",
+            to: "To:",
+            from: "From:",
+            subject: "Subject:",
+            message: "Message:",
+            subjectPlaceholder: "Write the message subject",
+            fromPlaceholder: "your-email@example.com",
+            messagePlaceholder: "Write your message here...",
+            encryptionEnabled: "End-to-end encryption enabled",
+            responseTime: "Your message will be sent directly to my inbox. I usually respond within 24-48 hours.",
+            sending: "Sending...",
+            notifications: {
+                fieldsRequired: {
+                    title: "Required fields",
+                    message: "Please complete all fields before sending."
+                },
+                emailSent: {
+                    title: "Email sent",
+                    message: "Message sent successfully! I will respond to you soon."
+                },
+                sendError: {
+                    title: "Send error",
+                    message: "There was an error sending the message. Please try again."
+                },
+                connectionError: {
+                    title: "Connection error",
+                    message: "Connection error. Please check your internet and try again."
+                }
+            }
+        },
         academic: {
             title: "SIGA - Academic Management Information System",
             systemName: "ACADEMIC MANAGEMENT",
@@ -167,6 +254,7 @@ export const ui = {
                 btn: "View Github",
             },
             ghorg: {
+                name: "Linux and Open Source USM",
                 btn: "View Organization",
                 desc: "LyossUSM is a community initiative for Linux and OpenSource at Universidad Técnica Federico Santa María",
             },
